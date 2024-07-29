@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Character Counter</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        .head h1 {
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .area {
+            margin-bottom: 1rem;
+        }
+
+        textarea {
+            width: 100%;
+            font-size: 1rem;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            resize: none;
+        }
+
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .footer div {
+            flex: 1;
+        }
+
+        #error {
+            color: red;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="head">
+            <h1>Real-Time Character Counter</h1>
+        </div>
+        <div class="area">
+            <textarea id="text" rows="10" cols="30" placeholder="Enter Text"></textarea>
+        </div>
+        <div id="error"></div>
+        <div class="footer">
+            <div class="counting">
+                <p>Total Characters: <span id="count">0</span></p>
+            </div>
+            <div class="remaining">
+                <p>Remaining Characters: <span id="remain">50</span></p>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const textArea = document.getElementById("text");
+            const countSpan = document.getElementById("count");
+            const remainSpan = document.getElementById("remain");
+            const errorDiv = document.getElementById("error");
+            const maximum_Char = 50;
+
+            textArea.addEventListener("input", function() {
+                const text = textArea.value;
+                if (text.length > maximum_Char) {
+                    errorDiv.innerText = "Maximum character limit reached";
+                    textArea.value = text.substring(0, maximum_Char);
+                } else {
+                    errorDiv.innerText = "";
+                    countSpan.innerText = text.length;
+                    remainSpan.innerText = maximum_Char - text.length;
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
